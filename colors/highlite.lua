@@ -355,7 +355,7 @@ local highlight_groups = {
 	scssElse = "scssIf",
 	scssMixinName = function(self)
 		local super = self.cssClassName
-		return { bg = super.bg, fg = super.fg, style = "Italic" }
+		return { bg = super.bg, fg = super.fg, style = "italic" }
 	end,
 	scssIf = "PreCondit",
 	scssInclude = "Include",

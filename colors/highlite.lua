@@ -62,11 +62,12 @@ local delfg = { "#8d2d29", 51, "cyan" }
 local delbg = { "#473126", 51, "cyan" }
 local delbg_light = { "#EBD8DA", 51, "cyan" }
 
-local BG = "bg"
-local FG = "fg"
+local highlight_group_normal = { dark = { fg = white, bg = black }, light = { fg = black, bg = whitest } }
+
+local BG = highlight_group_normal.bg
+local FG = highlight_group_normal.fg
 local NONE = {}
 
-local highlight_group_normal = { dark = { fg = white, bg = black }, light = { fg = black, bg = whitest } }
 
 local highlight_groups = {
 	--[[ 4.1. Text Analysis ]]

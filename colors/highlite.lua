@@ -1,4 +1,4 @@
-vim.g.colors_name = "despair"
+vim.g.colors_name = "highlite"
 
 local black = { "#282828", 0, "black" }
 local blackish = { "#202020", 0, "black" }

@@ -965,7 +965,7 @@ local highlight_groups = {
 	FloatermBorder = { dark = { bg = blackish, fg = gray_dark }, light = { bg = whiter, fg = whiteish } },
 
 	--[[ 4.4.21. nvim-tree ]]
-	NvimTreeNormal = { fg = gray_light, bg=BG },
+	NvimTreeNormal = { fg = FG, bg=BG },
 	NvimTreeRootFolder = { fg = purple },
 	NvimTreeOpenedFolderName = { dark = { fg = white }, light = { fg = gray_darker }, style = { "bold" } },
 	NvimTreeEmptyFolderName = { fg = gray_medium },

@@ -1035,6 +1035,7 @@ local highlight_groups = {
 		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindTypeParameterDefault.fg }
 	end,
 	LocalHighlight = { style = { "undercurl" } },
+	LspSignatureActiveParameter = "Search",
 }
 
 local terminal_colors = {

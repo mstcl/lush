@@ -207,6 +207,7 @@ local highlight_groups = {
 	MoreMsg = { fg = whiteish },
 	WarningMsg = { fg = orange, style = "bold" },
 	Question = { fg = turquoise, style = "bold" },
+
 	--[[ 4.2.11. LSP ]]
 	DiagnosticError = "Error",
 	DiagnosticFloatingError = function(self)
@@ -252,6 +253,37 @@ local highlight_groups = {
 	DiagnosticUnderlineHint = { style = { "undercurl", color = magenta } },
 	DiagnosticUnderlineInfo = { style = { "undercurl", color = blue } },
 	DiagnosticUnderlineWarn = { style = { "undercurl", color = orange } },
+
+	LspDiagnosticsDefaultError = 'DiagnosticError',
+	LspDiagnosticsFloatingError = 'DiagnosticFloatingError',
+	LspDiagnosticsSignError = 'DiagnosticSignError',
+
+	LspDiagnosticsDefaultWarning = 'DiagnosticWarn',
+	LspDiagnosticsFloatingWarning = 'DiagnosticFloatingWarn',
+	LspDiagnosticsSignWarning = 'DiagnosticSignWarn',
+
+	LspDiagnosticsDefaultHint = 'DiagnosticHint',
+	LspDiagnosticsFloatingHint = 'DiagnosticFloatingHint',
+	LspDiagnosticsSignHint = 'DiagnosticSignHint',
+
+	LspDiagnosticsDefaultInformation = 'DiagnosticInfo',
+	LspDiagnosticsFloatingInformation = 'DiagnosticFloatingInfo',
+	LspDiagnosticsSignInformation = 'DiagnosticSignInfo',
+
+	LspDiagnosticsUnderlineError = 'DiagnosticUnderlineError',
+	LspDiagnosticsUnderlineHint  = 'DiagnosticUnderlineHint',
+	LspDiagnosticsUnderlineInfo  = 'DiagnosticUnderlineInfo',
+	LspDiagnosticsUnderlineWarning = 'DiagnosticUnderlineWarn',
+
+	['@lsp.mod.constant'] = {link = 'Constant'},
+	['@lsp.type.boolean'] = {link = 'Boolean'},
+	['@lsp.type.character'] = {link = 'Character'},
+	['@lsp.type.float'] = {link = 'Float'},
+	['@lsp.type.interface'] = {link = 'Type'},
+	['@lsp.type.namespace'] = {link = 'Directory'},
+	['@lsp.type.number'] = {link = 'Number'},
+	['@lsp.type.string'] = {link = 'String'},
+
 	--[[ 4.2.12. Cursor ]]
 	Cursor = { style = "inverse" },
 	CursorIM = "Cursor",
@@ -396,6 +428,7 @@ local highlight_groups = {
 	jsonString = "String",
 	jsonStringSQError = "Exception",
 	--[[ 4.3.12. Lua ]]
+<<<<<<< HEAD
 	luaBraces = "Structure",
 	luaBrackets = "Delimiter",
 	luaBuiltin = "Keyword",
@@ -413,6 +446,28 @@ local highlight_groups = {
 	luaParens = "Delimiter",
 	luaSpecialTable = "Structure",
 	luaSpecialValue = "Function",
+=======
+	['@lsp.type.keyword.lua'] = {link = 'SpecialComment'},
+	['@lsp.type.string.lua'] = {link = 'String'},
+	['@lsp.typemod.variable.defaultLibrary.lua'] = {link = '@lsp.type.class.lua'},
+	luaBraces   = 'Structure',
+	luaBrackets = 'Delimiter',
+	luaBuiltin  = 'Keyword',
+	luaComma    = 'Delimiter',
+	luaFuncArgName = 'Identifier',
+	luaFuncCall = 'Function',
+	luaFuncId   = 'luaNoise',
+	luaFuncKeyword = 'Type',
+	luaFuncName   = 'Function',
+	luaFuncParens = 'Delimiter',
+	luaFuncTable  = 'Structure',
+	luaIn     = 'luaRepeat',
+	luaLocal  = 'Type',
+	luaNoise  = 'Delimiter',
+	luaParens = 'Delimiter',
+	luaSpecialTable = 'Structure',
+	luaSpecialValue = 'Function',
+>>>>>>> bc06ca1 (feat(colors): LSP semantic tokens)
 	luaStringLongTag = function(self)
 		local delimiter = self.Delimiter
 		return { bg = delimiter.bg, fg = delimiter.fg, style = "italic" }
@@ -596,11 +651,103 @@ local highlight_groups = {
 	helpSectionDelim = "Delimiter",
 	helpHyperTextJump = "Underlined",
 	--[[ 4.3.38 Man ]]
+<<<<<<< HEAD
 	-- manBold = function(self) return vim.tbl_extend('force', self.mkdCode, {style='nocombine'}) end,
 	manOptionDesc = "Special",
 	manReference = "Tag",
 	manUnderline = "Label",
 	--[[ 4.4. Plugins ]]
+=======
+	manHeader = 'markdownH1',
+	manOptionDesc = 'Special',
+	manReference = '@text.uri',
+	manSectionHeading = 'markdownH2',
+	manSubHeading = 'markdownH3',
+	manUnderline = '@text.literal',
+
+	--[[ 4.3.39 Rust ]]
+	['@lsp.mod.callable.rust'] = {link = 'Function'},
+	['@lsp.type.builtinType.rust'] = {link = 'Type'},
+	['@lsp.type.character.rust'] = {},
+	['@lsp.type.decorator.rust'] = {link = 'PreProc'},
+	['@lsp.type.derive.rust'] = {link = 'Macro'},
+	['@lsp.type.enumMember.rust'] = {},
+	['@lsp.type.macro.rust'] = {},
+	['@lsp.type.selfKeyword.rust'] = {link = 'Keyword'},
+	['@lsp.type.selfTypeKeyword.rust'] = {link = 'Typedef'},
+	['@lsp.type.string.rust'] = {},
+	['@lsp.type.typeAlias.rust'] = {link = 'Typedef'},
+	['@lsp.typemod.character.injected.rust'] = {link = '@lsp.type.character'},
+	['@lsp.typemod.deriveHelper.attribute.rust'] = {link = '@lsp.type.decorator.rust'},
+	['@lsp.typemod.keyword.injected.rust'] = {link = 'Keyword'},
+	['@lsp.typemod.macro.injected.rust'] = {link = 'Macro'},
+	['@lsp.typemod.operator.injected.rust'] = {link = 'Operator'},
+	['@lsp.typemod.string.injected.rust'] = {link = '@lsp.type.string'},
+	rustAssert = 'Debug',
+	rustCharacterDelimiter = 'rustNoise',
+	rustIdentifier = 'Identifier',
+	rustStaticLifetime = 'rustStorage',
+	rustStringDelimiter = 'rustNoise',
+
+	--[[ 4.3.40 XXD ]]
+	xxdAddress = 'Label',
+	xxdAscii = 'Character',
+	xxdDot = 'Ignore',
+	xxdSep = 'Delimiter',
+
+	--[[ 4.3.41 i3config ]]
+	i3ConfigAction = 'Function',
+	i3ConfigAssignKeyword = 'Keyword',
+	i3ConfigAssign = 'i3ConfigVariable',
+	i3ConfigBind = '@text',
+	i3ConfigBindKeyword = 'Keyword',
+	i3ConfigBlockKeyword = 'Keyword',
+	i3ConfigBorderStyle = 'Keyword',
+	i3ConfigBorderStyleKeyword = 'Keyword',
+	i3ConfigClientColorKeyword = 'Keyword',
+	i3ConfigCommandKeyword = 'Keyword',
+	i3ConfigDelayUrgencyKeyword = 'Keyword',
+	i3ConfigDrawingMarksKeyword = 'Keyword',
+	i3ConfigEdgeKeyword = 'Keyword',
+	i3ConfigExec = 'Statement',
+	i3ConfigExecKeyword = 'Keyword',
+	i3ConfigFloating = 'Keyword',
+	i3ConfigFocusFollowsMouseKeyword = 'Keyword',
+	i3ConfigFocusOnActivationKeyword = 'Keyword',
+	i3ConfigFocusWrappingKeyword = 'Keyword',
+	i3ConfigFontContent = 'String',
+	i3ConfigFontKeyword = 'Keyword',
+	i3ConfigFontSeparator = 'Delimiter',
+	i3ConfigFontSize = 'i3ConfigNumber',
+	i3ConfigForceXineramaKeyword = 'Keyword',
+	i3ConfigGapStyleKeyword = 'Keyword',
+	i3ConfigInitialize = 'String',
+	i3ConfigInitializeKeyword = 'Keyword',
+	i3ConfigInterprocessKeyword = 'Keyword',
+	i3ConfigLayoutKeyword = 'Keyword',
+	i3ConfigMouseWarpingKeyword = 'Keyword',
+	i3ConfigNoFocusKeyword = 'Keyword',
+	i3ConfigNoStartupId = 'i3ConfigBindArgument',
+	i3ConfigNumber = 'Number',
+	i3ConfigOrientationKeyword = 'Keyword',
+	i3ConfigPopupOnFullscreenKeyword = 'Keyword',
+	i3ConfigResourceKeyword = 'Keyword',
+	i3ConfigSmartBorderKeyword = 'Keyword',
+	i3ConfigSmartGapKeyword = 'Keyword',
+	i3ConfigString = 'String',
+	i3ConfigTitleAlignKeyword = 'Keyword',
+	i3ConfigVariable = 'Define',
+	i3ConfigVariableAndModifier = 'Character',
+	i3ConfigVariableModifier = 'Operator',
+	i3ConfigWindowCommandSpecial = 'htmlTag',
+	i3ConfigWorkspaceKeyword = 'Keyword',
+
+	--[[ 4.4. Plugins
+		Everything in this section is OPTIONAL. Feel free to remove everything
+		here if you don't want to define it, or add more if there's something
+		missing.
+	]]
+>>>>>>> bc06ca1 (feat(colors): LSP semantic tokens)
 	--[[ 4.4.1. ALE ]]
 	ALEErrorSign = "ErrorMsg",
 	ALEWarningSign = "WarningMsg",

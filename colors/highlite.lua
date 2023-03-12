@@ -1036,6 +1036,7 @@ local highlight_groups = {
 	end,
 	LocalHighlight = { style = { "undercurl" } },
 	LspSignatureActiveParameter = "Search",
+	LspLens = "Folded",
 }
 
 local terminal_colors = {

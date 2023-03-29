@@ -138,6 +138,7 @@ local highlight_groups = {
 	TabLineFill = { dark = { fg = blackish, bg = blackish }, light = { fg = whitest, bg = whitest } },
 	TabLineSel = { fg = FG, bg = BG },
 	Title = { style = "bold" },
+
 	--[[ 4.2.3. Conditional Line Highlighting]]
 	Conceal = { fg = red, bg = BG },
 	CursorLine = { dark = { bg = gray_darkest }, light = { bg = whitest } },
@@ -165,10 +166,10 @@ local highlight_groups = {
 	WilderScroll = { dark = { bg = black }, light = { bg = whiteish } },
 	WildeWildmenu = "PmenuSel",
 	WilderWildmenuAccent = { dark = { fg = pink }, light = { fg = pink_bg }, style = { "underline", "bold" } },
-	WilderWildmenuAccent = { dark = { fg = pink }, light = { fg = pink_bg }, style = { "underline", "bold" } },
 	WildMenu = "PmenuSel",
 	NormalFloat = { bg = BG, dark = { fg = white }, light = { fg = black } },
 	FloatBorder = { bg = BG, dark = { fg = gray_dark }, light = { fg = white } },
+
 	--[[ 4.2.5. Folds]]
 	FoldColumn = { dark = { bg = BG, fg = gray_dark }, light = { bg = BG, fg = white }, style = "bold" },
 	Folded = {
@@ -275,14 +276,17 @@ local highlight_groups = {
 	LspDiagnosticsUnderlineInfo  = 'DiagnosticUnderlineInfo',
 	LspDiagnosticsUnderlineWarning = 'DiagnosticUnderlineWarn',
 
-	['@lsp.mod.constant'] = 'Constant',
-	['@lsp.type.boolean'] = 'Boolean',
-	['@lsp.type.character'] = 'Character',
-	['@lsp.type.float'] = 'Float',
-	['@lsp.type.interface'] = 'Type',
-	['@lsp.type.namespace'] = 'Directory',
-	['@lsp.type.number'] = 'Number',
-	['@lsp.type.string'] = 'String',
+	['@lsp.mod.constant'] = '@constant',
+	['@lsp.mod.readonly'] = '@lsp.mod.constant',
+	['@lsp.type.boolean'] = '@boolean',
+	['@lsp.type.character'] = '@character',
+	['@lsp.type.float'] = '@float',
+	['@lsp.type.interface'] = '@lsp.type.type',
+	['@lsp.type.namespace'] = '@namespace',
+	['@lsp.type.number'] = '@number',
+	['@lsp.type.operator'] = '@operator',
+	['@lsp.type.string'] = '@string',
+	['@lsp.typemod.type.readonly'] = '@lsp.type.type',
 
 	--[[ 4.2.12. Cursor ]]
 	Cursor = { style = "inverse" },
@@ -428,26 +432,33 @@ local highlight_groups = {
 	jsonString = "String",
 	jsonStringSQError = "Exception",
 	--[[ 4.3.12. Lua ]]
+	['@lsp.type.function.lua'] = {},
 	['@lsp.type.keyword.lua'] = 'SpecialComment',
-	['@lsp.type.string.lua'] = 'String',
+	['@lsp.typemod.function.declaration.lua'] = '@lsp.type.function',
+	['@lsp.typemod.function.global.lua'] = '@lsp.type.function',
 	['@lsp.typemod.variable.defaultLibrary.lua'] = '@lsp.type.class.lua',
-	luaBraces   = 'Structure',
+	['@lsp.typemod.variable.definition.lua'] = '@structure.lua',
+	luaBraces = 'Structure',
 	luaBrackets = 'Delimiter',
-	luaBuiltin  = 'Keyword',
-	luaComma    = 'Delimiter',
+	luaBuiltin = 'Keyword',
+	luaComma = 'Delimiter',
+	luaDocTag = 'SpecialComment',
 	luaFuncArgName = 'Identifier',
 	luaFuncCall = 'Function',
-	luaFuncId   = 'luaNoise',
+	luaFuncId = 'luaNoise',
 	luaFuncKeyword = 'Type',
-	luaFuncName   = 'Function',
+	luaFuncName = 'Function',
 	luaFuncParens = 'Delimiter',
-	luaFuncTable  = 'Structure',
-	luaIn     = 'luaRepeat',
-	luaLocal  = 'Type',
-	luaNoise  = 'Delimiter',
+	luaFuncTable = 'Identifier',
+	luaFunction = 'Keyword',
+	luaGotoLabel = 'luaLabel',
+	luaIn = 'luaRepeat',
+	luaLocal = 'Keyword',
+	luaNoise = 'Delimiter',
 	luaParens = 'Delimiter',
 	luaSpecialTable = 'Structure',
 	luaSpecialValue = 'Function',
+	luaStatement = 'Keyword',
 	luaStringLongTag = function(self)
 		local delimiter = self.Delimiter
 		return { bg = delimiter.bg, fg = delimiter.fg, style = "italic" }
@@ -456,6 +467,7 @@ local highlight_groups = {
 	makeCommands = "Statement",
 	makeSpecTarget = "Type",
 	--[[ 4.3.13. Markdown ]]
+<<<<<<< HEAD
 	markdownCode = "mkdCode",
 	markdownStrike = { fg = gray_dark, style = { "strikethrough" } },
 	markdownJekyllFrontMatter = { fg = gray_dark },
@@ -484,6 +496,36 @@ local highlight_groups = {
 	mkdRule = function(self)
 		return { fg = self.Ignore.fg, style = { "underline", color = self.Delimiter.fg } }
 	end,
+=======
+	markdownCode = 'mkdCode',
+	markdownCodeDelimiter = 'mkdCodeDelimiter',
+	markdownEscape = 'SpecialChar',
+	markdownH1 = {fg = red, style = 'bold'},
+	markdownH2 = {fg = orange, style = 'bold'},
+	markdownH3 = {fg = yellow, style = 'bold'},
+	markdownH4 = {fg = green_dark, style = 'bold'},
+	markdownH5 = {fg = cyan, style = 'bold'},
+	markdownH6 = {fg = purple_light, style = 'bold'},
+	markdownLinkDelimiter = 'mkdDelimiter',
+	markdownLinkText = 'mkdLink',
+	markdownLinkTextDelimiter = 'markdownLinkDelimiter',
+	markdownUrl = 'mkdURL',
+	mkdBold = 'Ignore',
+	mkdBoldItalic = 'mkdBold',
+	mkdCode = 'Keyword',
+	mkdCodeDelimiter = 'mkdBold',
+	mkdCodeEnd = 'mkdCodeStart',
+	mkdCodeStart = 'mkdCodeDelimiter',
+	mkdDelimiter = 'Delimiter',
+	mkdHeading = 'Delimiter',
+	mkdItalic  = 'mkdBold',
+	mkdLineBreak = 'NonText',
+	mkdLink = 'Underlined',
+	mkdListItem  = 'Special',
+	mkdRule = function(self) return {fg = self.Ignore.fg, style = {'underline', color = self.Delimiter.fg}} end,
+	mkdURL = 'htmlString',
+
+>>>>>>> c591408 (ref(colors): sync with master-v3)
 	--[[ 4.3.20. Python ]]
 	pythonBrackets = "Delimiter",
 	pythonBuiltinFunc = "Operator",
@@ -659,22 +701,23 @@ local highlight_groups = {
 	manUnderline = '@text.literal',
 
 	--[[ 4.3.39 Rust ]]
-	['@lsp.mod.callable.rust'] = 'Function',
-	['@lsp.type.builtinType.rust'] = 'Type',
+	['@lsp.mod.callable.rust'] = '@lsp.type.function',
+	['@lsp.type.builtinType.rust'] = '@lsp.type.type',
 	['@lsp.type.character.rust'] = {},
-	['@lsp.type.decorator.rust'] = 'PreProc',
-	['@lsp.type.derive.rust'] = 'Macro',
+	['@lsp.type.decorator.rust'] = '@preproc',
+	['@lsp.type.derive.rust'] = '@macro',
 	['@lsp.type.enumMember.rust'] = {},
 	['@lsp.type.macro.rust'] = {},
-	['@lsp.type.selfKeyword.rust'] = 'Keyword',
-	['@lsp.type.selfTypeKeyword.rust'] = 'Typedef',
+	['@lsp.type.operator.rust'] = {},
+	['@lsp.type.selfKeyword.rust'] = '@keyword',
+	['@lsp.type.selfTypeKeyword.rust'] = '@lsp.type.typeAlias.rust',
 	['@lsp.type.string.rust'] = {},
-	['@lsp.type.typeAlias.rust'] = 'Typedef',
+	['@lsp.type.typeAlias.rust'] = '@type.definition',
 	['@lsp.typemod.character.injected.rust'] = '@lsp.type.character',
 	['@lsp.typemod.deriveHelper.attribute.rust'] = '@lsp.type.decorator.rust',
-	['@lsp.typemod.keyword.injected.rust'] = 'Keyword',
-	['@lsp.typemod.macro.injected.rust'] = 'Macro',
-	['@lsp.typemod.operator.injected.rust'] = 'Operator',
+	['@lsp.typemod.keyword.injected.rust'] = '@keyword',
+	['@lsp.typemod.macro.injected.rust'] = '@macro',
+	['@lsp.typemod.operator.injected.rust'] = '@operator',
 	['@lsp.typemod.string.injected.rust'] = '@lsp.type.string',
 	rustAssert = 'Debug',
 	rustCharacterDelimiter = 'rustNoise',
@@ -778,6 +821,7 @@ local highlight_groups = {
 	NERDTreeExecFile = "Function",
 	NERDTreeLinkTarget = "Tag",
 	--[[ 4.4.8. nvim-treesitter ]]
+<<<<<<< HEAD
 	["@boolean"] = { fg = orange_dark, style = "italic" },
 	["@text.note"] = "Info",
 	["@text.warning"] = "Warning",
@@ -850,6 +894,57 @@ local highlight_groups = {
 	BufferVisibleTarget = { fg = blue, bg = BG, style = "bold" },
 	BufferSpaceSeparator = { dark = { fg = gray_dark, bg = gray_dark }, light = { fg = whiter, bg = whiter } },
 	BufferTypeSeparator = { dark = { fg = gray_dark, bg = gray_dark }, light = { fg = whiter, bg = whiter } },
+=======
+	['@namespace'] = 'Directory',
+
+	--[[ 4.4.9. barbar.nvim ]]
+	BufferAlternate = function(self) return {fg = self.BufferVisible.fg, bg = self.TabLine.bg} end,
+	BufferAlternateERROR = function(self) return {fg = self.ErrorMsg.fg, bg = gray_dark} end,
+	BufferAlternateHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = gray_dark} end,
+	BufferAlternateIndex = function(self) return {fg = self.Number.fg, bg = gray_dark} end,
+	BufferAlternateINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = gray_dark} end,
+	BufferAlternateMod = function(self) return {fg = self.BufferVisibleMod.fg, bg = gray_dark, style = 'bold'} end,
+	BufferAlternateSign = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferAlternate.bg} end,
+	BufferAlternateTarget = function(self) return {fg = self.BufferAlternateSign.fg, bg = gray_dark, style = 'italic'} end,
+	BufferAlternateWARN = function(self) return {fg = self.WarningMsg.fg, bg = gray_dark} end,
+
+	BufferCurrent = 'TabLineSel',
+	BufferCurrentERROR = function(self) return {fg = self.ErrorMsg.fg, bg = self.BufferCurrent.bg} end,
+	BufferCurrentHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferCurrent.bg} end,
+	BufferCurrentIndex = function(self) return {fg = self.Number.fg, bg = self.BufferCurrent.bg} end,
+	BufferCurrentINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = self.BufferCurrent.bg} end,
+	BufferCurrentMod = {fg = tan, bg = black, style = 'bold'},
+	BufferCurrentSign = function(self) return {fg = teal, bg = self.BufferCurrent.bg} end,
+	BufferCurrentTarget = 'BufferCurrentSign',
+	BufferCurrentWARN = function(self) return {fg = self.WarningMsg.fg, bg = self.BufferCurrent.bg} end,
+
+	BufferInactive = 'BufferVisible',
+	BufferInactiveERROR = function(self) return {fg = self.ErrorMsg.fg, bg = self.BufferInactive.bg} end,
+	BufferInactiveHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferInactive.bg} end,
+	BufferInactiveIndex = function(self) return {fg = self.Number.fg, bg = self.BufferInactive.bg} end,
+	BufferInactiveINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = self.BufferInactive.bg} end,
+	BufferInactiveMod = 'BufferVisibleMod',
+	BufferInactiveSign = 'BufferVisibleSign',
+	BufferInactiveTarget = 'BufferVisibleTarget',
+	BufferInactiveWARN = function(self) return {fg = self.WarningMsg.fg, bg = self.BufferInactive.bg} end,
+
+	BufferTabpages = {style = 'bold'},
+	BufferTabpageFill = 'TabLineFill',
+
+	BufferVisible = 'TabLine',
+	BufferVisibleERROR = function(self) return {fg = self.ErrorMsg.fg, bg = self.BufferVisible.bg} end,
+	BufferVisibleHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferVisible.bg} end,
+	BufferVisibleIndex = function(self) return {fg = self.Number.fg, bg = self.BufferVisible.bg} end,
+	BufferVisibleINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = self.BufferVisible.bg} end,
+	BufferVisibleMod = function(self) return {fg = white, bg = self.BufferVisible.bg, style = 'italic'} end,
+	BufferVisibleSign = function(self)
+		local definition = self.BufferVisibleMod
+		return {fg = definition.fg, bg = definition.bg, style = 'bold'}
+	end,
+	BufferVisibleTarget = 'BufferVisibleSign',
+	BufferVisibleWARN = function(self) return {fg = self.WarningMsg.fg, bg = self.BufferVisible.bg} end,
+
+>>>>>>> c591408 (ref(colors): sync with master-v3)
 	--[[ 4.4.10. vim-sandwhich ]]
 	OperatorSandwichChange = "DiffText",
 	--[[ 4.4.11. Fern ]]

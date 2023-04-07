@@ -292,15 +292,19 @@ local highlight_groups = {
 	Cursor = { style = "inverse" },
 	CursorIM = "Cursor",
 	CursorColumn = { bg = gray_dark },
+
 	--[[ 4.2.13. Misc ]]
 	Directory = { fg = blue, style = "bold" },
+
 	--[[ 4.3. Programming Languages ]]
 	--[[ 4.3.1. C ]]
 	cConstant = "Constant",
 	cCustomClass = "Type",
+
 	--[[ 4.3.2. C++ ]]
 	cppSTLexception = "Exception",
 	cppSTLnamespace = "String",
+
 	--[[ 4.3.3 C# ]]
 	csBraces = "Delimiter",
 	csClass = "Structure",
@@ -339,6 +343,7 @@ local highlight_groups = {
 	razorImplicitExpression = "PreProc",
 	razorLine = "Constant",
 	razorUsing = "Include",
+
 	--[[ 4.3.4. CSS ]]
 	cssAtRule = "PreCondit",
 	cssAttr = "Keyword",
@@ -373,11 +378,14 @@ local highlight_groups = {
 	scssSelectorName = "Identifier",
 	scssVariable = "Define",
 	scssVariableAssignment = "Operator",
+
 	--[[ 4.3.5. Dart ]]
 	dartLibrary = "Statement",
+
 	--[[ 4.3.6. dot ]]
 	dotKeyChar = "Character",
 	dotType = "Type",
+
 	--[[ 4.3.7. Go ]]
 	goBlock = "Delimiter",
 	goBoolean = "Boolean",
@@ -400,6 +408,7 @@ local highlight_groups = {
 	goTypeName = "Type",
 	goVarAssign = "Identifier",
 	goVarDefs = "goVarAssign",
+
 	--[[ 4.3.8. HTML ]]
 	htmlArg = "Label",
 	htmlBold = { fg = highlight_group_normal.fg, style = "bold" },
@@ -416,13 +425,16 @@ local highlight_groups = {
 	htmlTag = "Special",
 	htmlTagN = "Typedef",
 	htmlTagName = "Type",
+
 	--[[ 4.3.9. Java ]]
 	javaClassDecl = "Structure",
+
 	--[[ 4.3.10. JavaScript ]]
 	jsFuncBlock = "Function",
 	jsObjectKey = "Type",
 	jsReturn = "Keyword",
 	jsVariableDef = "Identifier",
+
 	--[[ 4.3.11. JSON ]]
 	jsonBraces = "luaBraces",
 	jsonEscape = "SpecialChar",
@@ -431,6 +443,7 @@ local highlight_groups = {
 	jsonQuote = "Delimiter",
 	jsonString = "String",
 	jsonStringSQError = "Exception",
+
 	--[[ 4.3.12. Lua ]]
 	['@lsp.type.function.lua'] = {},
 	['@lsp.type.keyword.lua'] = 'SpecialComment',
@@ -463,11 +476,12 @@ local highlight_groups = {
 		local delimiter = self.Delimiter
 		return { bg = delimiter.bg, fg = delimiter.fg, style = "italic" }
 	end,
+
 	--[[ 4.3.12. Make ]]
 	makeCommands = "Statement",
 	makeSpecTarget = "Type",
+
 	--[[ 4.3.13. Markdown ]]
-<<<<<<< HEAD
 	markdownCode = "mkdCode",
 	markdownStrike = { fg = gray_dark, style = { "strikethrough" } },
 	markdownJekyllFrontMatter = { fg = gray_dark },
@@ -496,36 +510,8 @@ local highlight_groups = {
 	mkdRule = function(self)
 		return { fg = self.Ignore.fg, style = { "underline", color = self.Delimiter.fg } }
 	end,
-=======
-	markdownCode = 'mkdCode',
-	markdownCodeDelimiter = 'mkdCodeDelimiter',
-	markdownEscape = 'SpecialChar',
-	markdownH1 = {fg = red, style = 'bold'},
-	markdownH2 = {fg = orange, style = 'bold'},
-	markdownH3 = {fg = yellow, style = 'bold'},
-	markdownH4 = {fg = green_dark, style = 'bold'},
-	markdownH5 = {fg = cyan, style = 'bold'},
-	markdownH6 = {fg = purple_light, style = 'bold'},
-	markdownLinkDelimiter = 'mkdDelimiter',
-	markdownLinkText = 'mkdLink',
-	markdownLinkTextDelimiter = 'markdownLinkDelimiter',
-	markdownUrl = 'mkdURL',
-	mkdBold = 'Ignore',
-	mkdBoldItalic = 'mkdBold',
-	mkdCode = 'Keyword',
-	mkdCodeDelimiter = 'mkdBold',
-	mkdCodeEnd = 'mkdCodeStart',
-	mkdCodeStart = 'mkdCodeDelimiter',
-	mkdDelimiter = 'Delimiter',
-	mkdHeading = 'Delimiter',
-	mkdItalic  = 'mkdBold',
-	mkdLineBreak = 'NonText',
-	mkdLink = 'Underlined',
-	mkdListItem  = 'Special',
-	mkdRule = function(self) return {fg = self.Ignore.fg, style = {'underline', color = self.Delimiter.fg}} end,
 	mkdURL = 'htmlString',
 
->>>>>>> c591408 (ref(colors): sync with master-v3)
 	--[[ 4.3.20. Python ]]
 	pythonBrackets = "Delimiter",
 	pythonBuiltinFunc = "Operator",
@@ -550,9 +536,11 @@ local highlight_groups = {
 	rubyClass = "Structure",
 	rubyDefine = "Define",
 	rubyInterpolationDelimiter = "Delimiter",
+
 	--[[ 4.3.23. Scala ]]
 	scalaKeyword = "Keyword",
 	scalaNameDefinition = "Identifier",
+
 	--[[ 4.3.24. shell ]]
 	shDerefSimple = "SpecialChar",
 	shFunctionKey = "Function",
@@ -561,10 +549,12 @@ local highlight_groups = {
 	shQuote = "Delimiter",
 	shSet = "Statement",
 	shTestOpr = "Debug",
+
 	--[[ 4.3.25. Solidity ]]
 	solBuiltinType = "Type",
 	solContract = "Typedef",
 	solContractName = "Function",
+
 	--[[ 4.3.26. TOML ]]
 	tomlComment = "Comment",
 	tomlDate = "Special",
@@ -588,34 +578,41 @@ local highlight_groups = {
 	vimSetEqual = "Operator",
 	vimSetSep = "Delimiter",
 	vimUserFunc = "vimFunction",
+
 	--[[ 4.3.28. XML ]]
 	xmlAttrib = "htmlArg",
 	xmlEndTag = "xmlTag",
 	xmlEqual = "Operator",
 	xmlTag = "htmlTag",
 	xmlTagName = "htmlTagName",
+
 	--[[ 4.3.29. SQL ]]
 	sqlKeyword = "Keyword",
 	sqlParen = "Delimiter",
 	sqlSpecial = "Constant",
 	sqlStatement = "Statement",
 	sqlParenFunc = "Function",
+
 	--[[ 4.3.30. dos INI ]]
 	dosiniHeader = "Title",
 	dosiniLabel = "Label",
+
 	--[[ 4.3.31. Crontab ]]
 	crontabDay = "StorageClass",
 	crontabDow = "String",
 	crontabHr = "Number",
 	crontabMin = "Float",
 	crontabMnth = "Structure",
+
 	--[[ 4.3.32. PlantUML ]]
 	plantumlArrowLR = "Statement",
 	plantumlColonLine = NONE,
 	plantumlMindmap = "Label",
 	plantumlMindmap2 = "Label",
+
 	--[[ 4.3.33. YAML ]]
 	yamlKey = "Label",
+
 	--[[ 4.3.34. Git ]]
 	diffAdded = "DiffAdd",
 	diffRemoved = "DiffDelete",
@@ -642,12 +639,14 @@ local highlight_groups = {
 	gitrebaseReword = "gitrebasePick",
 	gitrebaseSquash = "Macro",
 	gitrebaseSummary = "Title",
+
 	--[[ 4.3.35. Vimtex ]]
 	texMathRegion = "Number",
 	texMathSub = "Number",
 	texMathSuper = "Number",
 	texMathRegionX = "Number",
 	texMathRegionXX = "Number",
+
 	--[[ 4.3.36. Coq ]]
 	coqConstructor = "Constant",
 	coqDefBinderType = "coqDefType",
@@ -666,14 +665,13 @@ local highlight_groups = {
 	coqTermPunctuation = "Delimiter",
 	coqVernacCmd = "Statement",
 	coqVernacPunctuation = "coqTermPunctuation",
+
 	--[[ 4.3.37 Help ]]
-<<<<<<< HEAD
 	helpHeader = "Label",
 	helpOption = "Keyword",
 	helpHeadline = "Title",
 	helpSectionDelim = "Delimiter",
 	helpHyperTextJump = "Underlined",
-=======
 	helpCommand = 'Statement',
 	helpHeader = 'Label',
 	helpHeadline = 'Title',
@@ -684,15 +682,13 @@ local highlight_groups = {
 	helpOption = 'Keyword',
 	helpSectionDelim = 'Delimiter',
 
->>>>>>> f008ce4 (fix(colors): use of 3.0-style hl-link)
 	--[[ 4.3.38 Man ]]
-<<<<<<< HEAD
 	-- manBold = function(self) return vim.tbl_extend('force', self.mkdCode, {style='nocombine'}) end,
 	manOptionDesc = "Special",
 	manReference = "Tag",
 	manUnderline = "Label",
+
 	--[[ 4.4. Plugins ]]
-=======
 	manHeader = 'markdownH1',
 	manOptionDesc = 'Special',
 	manReference = '@text.uri',
@@ -783,7 +779,7 @@ local highlight_groups = {
 		here if you don't want to define it, or add more if there's something
 		missing.
 	]]
->>>>>>> bc06ca1 (feat(colors): LSP semantic tokens)
+
 	--[[ 4.4.1. ALE ]]
 	ALEErrorSign = "ErrorMsg",
 	ALEWarningSign = "WarningMsg",
@@ -820,8 +816,10 @@ local highlight_groups = {
 	NERDTreeClosable = "NERDTreeOpenable",
 	NERDTreeExecFile = "Function",
 	NERDTreeLinkTarget = "Tag",
+
 	--[[ 4.4.8. nvim-treesitter ]]
-<<<<<<< HEAD
+	['@structure'] = 'Structure', -- BUG: missing from Nvim >=0.9
+	['@namespace'] = 'Directory',
 	["@boolean"] = { fg = orange_dark, style = "italic" },
 	["@text.note"] = "Info",
 	["@text.warning"] = "Warning",
@@ -863,6 +861,7 @@ local highlight_groups = {
 	["@text.literal"] = "String",
 	["@text.emphasis"] = { style = "italic" },
 	["@text.strong"] = { style = "bold" },
+
 	--[[ 4.4.9. barbar.nvim ]]
 	BufferCurrent = { dark = { fg = gray_light }, light = { fg = gray_light }, style = "bold" },
 	BufferCurrentIndex = function(self)
@@ -894,8 +893,6 @@ local highlight_groups = {
 	BufferVisibleTarget = { fg = blue, bg = BG, style = "bold" },
 	BufferSpaceSeparator = { dark = { fg = gray_dark, bg = gray_dark }, light = { fg = whiter, bg = whiter } },
 	BufferTypeSeparator = { dark = { fg = gray_dark, bg = gray_dark }, light = { fg = whiter, bg = whiter } },
-=======
-	['@namespace'] = 'Directory',
 
 	--[[ 4.4.9. barbar.nvim ]]
 	BufferAlternate = function(self) return {fg = self.BufferVisible.fg, bg = self.TabLine.bg} end,
@@ -944,7 +941,6 @@ local highlight_groups = {
 	BufferVisibleTarget = 'BufferVisibleSign',
 	BufferVisibleWARN = function(self) return {fg = self.WarningMsg.fg, bg = self.BufferVisible.bg} end,
 
->>>>>>> c591408 (ref(colors): sync with master-v3)
 	--[[ 4.4.10. vim-sandwhich ]]
 	OperatorSandwichChange = "DiffText",
 	--[[ 4.4.11. Fern ]]

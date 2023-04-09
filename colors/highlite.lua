@@ -254,6 +254,12 @@ local highlight_groups = {
 	DiagnosticUnderlineHint = { style = { "undercurl", color = magenta } },
 	DiagnosticUnderlineInfo = { style = { "undercurl", color = blue } },
 	DiagnosticUnderlineWarn = { style = { "undercurl", color = orange } },
+	DiagnosticDeprecated = {strikethrough = true},
+	DiagnosticOk = {fg = black, bg = green, style = 'bold'},
+	DiagnosticFloatingOk = {fg = green, style = 'italic'},
+	DiagnosticSignOk = 'DiagnosticFloatingOk',
+	DiagnosticUnderlineOk = {style = {'undercurl', color = green}},
+	DiagnosticUnnecessary = function(self) return {style = {'underdotted', color = self.Ignore.fg}} end,
 
 	LspDiagnosticsDefaultError = 'DiagnosticError',
 	LspDiagnosticsFloatingError = 'DiagnosticFloatingError',

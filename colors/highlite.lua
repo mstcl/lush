@@ -2,7 +2,7 @@ vim.g.colors_name = "highlite"
 
 local black = { "#282828", 0, "black" }
 local blackish = { "#202020", 0, "black" }
-local blacker = { "#111010", 0, "black" }
+local blacker = { "#101010", 0, "black" }
 --[[ local gray = { "#665c54", 244, "gray" }
 local gray_dark = { "#504945", 237, "darkgrey" }
 local gray_darker = { "#3c3836", 235, "gray" }
@@ -113,24 +113,24 @@ local highlight_groups = {
 	SpecialComment = { fg = gray, style = { "bold", "nocombine" } },
 	Debug = "WarningMsg",
 	--[[ 4.1.7. Help Syntax]]
-	Underlined = { fg = turquoise_dark, style = "underline" },
+	Underlined = { fg = turquoise_dark, style = { "underline", color = turquoise_dark } },
 	Ignore = { fg = gray },
 	Error = { fg = black, bg = red, style = { "bold", "underline", color = black } },
 	-- Error = { fg = black, bg = red, style = { "bold" } },
-	Todo = { fg = yellow, style = { "bold", "underline", color = black } },
+	Todo = { fg = black, bg = yellow, style = { "bold" } },
 	-- Todo = { fg = yellow, style = { "bold"} },
 	Hint = { fg = black, bg = magenta, style = "bold" },
 	Info = { fg = black, bg = pink_light, style = "bold" },
 	Warning = { fg = black, bg = orange, style = "bold" },
 	--[[ 4.2... Editor UI  ]]
 	--[[ 4.2.1. Status Line]]
-	StatusLine = { dark = { bg = gray_darkerer, fg = green_light }, light = { bg = whiter, fg = green_dark } },
+	StatusLine = { dark = { bg = BG, fg = green_light }, light = { bg = BG, fg = green_dark } },
 	StatusLineNC = function(self)
 		return { fg = gray, bg = self.StatusLine.bg }
 	end,
 	StatusLineTerm = "StatusLine",
 	StatusLineTermNC = "StatusLineNC",
-	MsgArea = { bg = BG },
+	MsgArea = { bg = BG, fg = gray_darker },
 	WinBar = { dark = { bg = gray_darkerer }, light = { bg = whiterer } },
 	--[[ 4.2.2. Separators]]
 	VertSplit = { dark = { bg = gray_darker, fg = gray_darker }, light = { bg = whiter, fg = whiter } },
@@ -154,18 +154,36 @@ local highlight_groups = {
 	Pmenu = { dark = { fg = gray_medium, bg = gray_darker }, light = { fg = gray_dark, bg = whiter } },
 	PmenuSbar = { dark = { fg = blacker, bg = gray_darker }, light = { fg = whiteish, bg = whiter } },
 	PmenuSel = {
-		dark = { fg = gray_medium, bg = gray_darker },
-		light = { fg = gray_light, bg = whiter },
-		style = { "inverse", "bold" },
+		dark = { fg = whiter, bg = red_light },
+		light = { fg = whiter, bg = red_dark },
+		style = { "bold" },
 	},
 	PmenuThumb = { dark = { fg = gray_dark, bg = gray_dark }, light = { fg = gray_light, bg = gray_light } },
-	Wilder = { dark = { fg = white, bg = black }, light = { fg = black, bg = whitest } },
-	WilderAccent = { dark = { fg = pink }, light = { fg = pink_bg }, style = { "underline", "bold" } },
-	WilderPoppupMenuAccent = { dark = { fg = pink }, light = { fg = pink_bg }, style = { "underline", "bold" } },
-	WilderPopupMenuSelectedAccent = { dark = { fg = pink }, light = { fg = pink_bg }, style = { "underline", "bold" } },
+	Wilder = { dark = { fg = white, bg = black }, light = { fg = gray, bg = BG }, style = "bold" },
+	WilderAccent = {
+		dark = { fg = pink },
+		light = { fg = red_dark },
+		style = { "underline", "bold", color = red_dark },
+	},
+	WilderSelected = { dark = { fg = whiter, bg = red }, light = { bg = red_dark, fg = whiter } },
+	WilderSelectedAccent = {
+		dark = { fg = whiter, bg = red },
+		light = { bg = red_dark, fg = whiter },
+		style = { "underline", "bold", color = whiter },
+	},
 	WilderScroll = { dark = { bg = black }, light = { bg = whiteish } },
-	WildeWildmenu = "PmenuSel",
-	WilderWildmenuAccent = { dark = { fg = pink }, light = { fg = pink_bg }, style = { "underline", "bold" } },
+	WilderWildMenu = "PmenuSel",
+	WilderWildMenuAccent = {
+		dark = { fg = whiter },
+		light = { fg = whiter },
+		style = { "underline", "bold", color = whiter },
+	},
+	WilderWildMenuSelected = { dark = { bg = whiter, fg = red }, light = { fg = red, bg = whiter } },
+	WilderWildMenuSelectedAccent = {
+		dark = { bg = whiter, fg = red },
+		light = { fg = red, bg = whiter },
+		style = { "underline", "bold", color = red },
+	},
 	WildMenu = "PmenuSel",
 	NormalFloat = { bg = BG, dark = { fg = white }, light = { fg = black } },
 	FloatBorder = { bg = BG, dark = { fg = gray_dark }, light = { fg = white } },
@@ -209,7 +227,7 @@ local highlight_groups = {
 	Question = { fg = turquoise, style = "bold" },
 	--
 	--[[ 4.2.11. LSP / Diagnostics ]]
-	DiagnosticDeprecated = {strikethrough = true},
+	DiagnosticDeprecated = { strikethrough = true },
 	DiagnosticError = "Error",
 	DiagnosticFloatingError = function(self)
 		return { fg = self.ErrorMsg.fg, bg = BG }
@@ -254,44 +272,46 @@ local highlight_groups = {
 	DiagnosticUnderlineHint = { style = { "undercurl", color = magenta } },
 	DiagnosticUnderlineInfo = { style = { "undercurl", color = blue } },
 	DiagnosticUnderlineWarn = { style = { "undercurl", color = orange } },
-	DiagnosticOk = {fg = black, bg = green, style = 'bold'},
-	DiagnosticFloatingOk = {fg = green, style = 'italic'},
-	DiagnosticSignOk = 'DiagnosticFloatingOk',
-	DiagnosticUnderlineOk = {style = {'undercurl', color = green}},
-	DiagnosticUnnecessary = function(self) return {style = {'underdotted', color = self.Ignore.fg}} end,
+	DiagnosticOk = { fg = black, bg = green, style = "bold" },
+	DiagnosticFloatingOk = { fg = green, style = "italic" },
+	DiagnosticSignOk = "DiagnosticFloatingOk",
+	DiagnosticUnderlineOk = { style = { "undercurl", color = green } },
+	DiagnosticUnnecessary = function(self)
+		return { style = { "underdotted", color = self.Ignore.fg } }
+	end,
 
-	LspDiagnosticsDefaultError = 'DiagnosticError',
-	LspDiagnosticsFloatingError = 'DiagnosticFloatingError',
-	LspDiagnosticsSignError = 'DiagnosticSignError',
+	LspDiagnosticsDefaultError = "DiagnosticError",
+	LspDiagnosticsFloatingError = "DiagnosticFloatingError",
+	LspDiagnosticsSignError = "DiagnosticSignError",
 
-	LspDiagnosticsDefaultWarning = 'DiagnosticWarn',
-	LspDiagnosticsFloatingWarning = 'DiagnosticFloatingWarn',
-	LspDiagnosticsSignWarning = 'DiagnosticSignWarn',
+	LspDiagnosticsDefaultWarning = "DiagnosticWarn",
+	LspDiagnosticsFloatingWarning = "DiagnosticFloatingWarn",
+	LspDiagnosticsSignWarning = "DiagnosticSignWarn",
 
-	LspDiagnosticsDefaultHint = 'DiagnosticHint',
-	LspDiagnosticsFloatingHint = 'DiagnosticFloatingHint',
-	LspDiagnosticsSignHint = 'DiagnosticSignHint',
+	LspDiagnosticsDefaultHint = "DiagnosticHint",
+	LspDiagnosticsFloatingHint = "DiagnosticFloatingHint",
+	LspDiagnosticsSignHint = "DiagnosticSignHint",
 
-	LspDiagnosticsDefaultInformation = 'DiagnosticInfo',
-	LspDiagnosticsFloatingInformation = 'DiagnosticFloatingInfo',
-	LspDiagnosticsSignInformation = 'DiagnosticSignInfo',
+	LspDiagnosticsDefaultInformation = "DiagnosticInfo",
+	LspDiagnosticsFloatingInformation = "DiagnosticFloatingInfo",
+	LspDiagnosticsSignInformation = "DiagnosticSignInfo",
 
-	LspDiagnosticsUnderlineError = 'DiagnosticUnderlineError',
-	LspDiagnosticsUnderlineHint  = 'DiagnosticUnderlineHint',
-	LspDiagnosticsUnderlineInfo  = 'DiagnosticUnderlineInfo',
-	LspDiagnosticsUnderlineWarning = 'DiagnosticUnderlineWarn',
+	LspDiagnosticsUnderlineError = "DiagnosticUnderlineError",
+	LspDiagnosticsUnderlineHint = "DiagnosticUnderlineHint",
+	LspDiagnosticsUnderlineInfo = "DiagnosticUnderlineInfo",
+	LspDiagnosticsUnderlineWarning = "DiagnosticUnderlineWarn",
 
-	['@lsp.mod.constant'] = '@constant',
-	['@lsp.mod.readonly'] = '@lsp.mod.constant',
-	['@lsp.type.boolean'] = '@boolean',
-	['@lsp.type.character'] = '@character',
-	['@lsp.type.float'] = '@float',
-	['@lsp.type.interface'] = '@lsp.type.type',
-	['@lsp.type.namespace'] = '@namespace',
-	['@lsp.type.number'] = '@number',
-	['@lsp.type.operator'] = '@operator',
-	['@lsp.type.string'] = '@string',
-	['@lsp.typemod.type.readonly'] = '@lsp.type.type',
+	["@lsp.mod.constant"] = "@constant",
+	["@lsp.mod.readonly"] = "@lsp.mod.constant",
+	["@lsp.type.boolean"] = "@boolean",
+	["@lsp.type.character"] = "@character",
+	["@lsp.type.float"] = "@float",
+	["@lsp.type.interface"] = "@lsp.type.type",
+	["@lsp.type.namespace"] = "@namespace",
+	["@lsp.type.number"] = "@number",
+	["@lsp.type.operator"] = "@operator",
+	["@lsp.type.string"] = "@string",
+	["@lsp.typemod.type.readonly"] = "@lsp.type.type",
 
 	--[[ 4.2.12. Cursor ]]
 	Cursor = { style = "inverse" },
@@ -437,33 +457,33 @@ local highlight_groups = {
 	jsonString = "String",
 	jsonStringSQError = "Exception",
 	--[[ 4.3.12. Lua ]]
-	['@lsp.type.function.lua'] = {},
-	['@lsp.type.keyword.lua'] = 'SpecialComment',
-	['@lsp.typemod.function.declaration.lua'] = '@lsp.type.function',
-	['@lsp.typemod.function.global.lua'] = '@lsp.type.function',
-	['@lsp.typemod.variable.defaultLibrary.lua'] = '@lsp.type.class.lua',
-	['@lsp.typemod.variable.definition.lua'] = '@structure.lua',
-	luaBraces = 'Structure',
-	luaBrackets = 'Delimiter',
-	luaBuiltin = 'Keyword',
-	luaComma = 'Delimiter',
-	luaDocTag = 'SpecialComment',
-	luaFuncArgName = 'Identifier',
-	luaFuncCall = 'Function',
-	luaFuncId = 'luaNoise',
-	luaFuncKeyword = 'Type',
-	luaFuncName = 'Function',
-	luaFuncParens = 'Delimiter',
-	luaFuncTable = 'Identifier',
-	luaFunction = 'Keyword',
-	luaGotoLabel = 'luaLabel',
-	luaIn = 'luaRepeat',
-	luaLocal = 'Keyword',
-	luaNoise = 'Delimiter',
-	luaParens = 'Delimiter',
-	luaSpecialTable = 'Structure',
-	luaSpecialValue = 'Function',
-	luaStatement = 'Keyword',
+	["@lsp.type.function.lua"] = {},
+	["@lsp.type.keyword.lua"] = "SpecialComment",
+	["@lsp.typemod.function.declaration.lua"] = "@lsp.type.function",
+	["@lsp.typemod.function.global.lua"] = "@lsp.type.function",
+	["@lsp.typemod.variable.defaultLibrary.lua"] = "@lsp.type.class.lua",
+	["@lsp.typemod.variable.definition.lua"] = "@structure.lua",
+	luaBraces = "Structure",
+	luaBrackets = "Delimiter",
+	luaBuiltin = "Keyword",
+	luaComma = "Delimiter",
+	luaDocTag = "SpecialComment",
+	luaFuncArgName = "Identifier",
+	luaFuncCall = "Function",
+	luaFuncId = "luaNoise",
+	luaFuncKeyword = "Type",
+	luaFuncName = "Function",
+	luaFuncParens = "Delimiter",
+	luaFuncTable = "Identifier",
+	luaFunction = "Keyword",
+	luaGotoLabel = "luaLabel",
+	luaIn = "luaRepeat",
+	luaLocal = "Keyword",
+	luaNoise = "Delimiter",
+	luaParens = "Delimiter",
+	luaSpecialTable = "Structure",
+	luaSpecialValue = "Function",
+	luaStatement = "Keyword",
 	luaStringLongTag = function(self)
 		local delimiter = self.Delimiter
 		return { bg = delimiter.bg, fg = delimiter.fg, style = "italic" }
@@ -500,7 +520,7 @@ local highlight_groups = {
 	mkdRule = function(self)
 		return { fg = self.Ignore.fg, style = { "underline", color = self.Delimiter.fg } }
 	end,
-	mkdURL = 'htmlString',
+	mkdURL = "htmlString",
 
 	--[[ 4.3.20. Python ]]
 	pythonBrackets = "Delimiter",
@@ -644,10 +664,10 @@ local highlight_groups = {
 	coqVernacPunctuation = "coqTermPunctuation",
 
 	--[[ 4.3.37 Help ]]
-	helpCommand = 'Statement',
-	helpHyperTextEntry = 'Tag',
-	helpExample = 'Statement',
-	helpNote = 'DiagnosticHint',
+	helpCommand = "Statement",
+	helpHyperTextEntry = "Tag",
+	helpExample = "Statement",
+	helpNote = "DiagnosticHint",
 	helpHeader = "Label",
 	helpOption = "Keyword",
 	helpHeadline = "Title",
@@ -655,98 +675,100 @@ local highlight_groups = {
 	helpHyperTextJump = "Underlined",
 
 	--[[ 4.3.38 Man ]]
-	manBold = function(self) return vim.tbl_extend('force', self.mkdCode, {style='nocombine'}) end,
+	manBold = function(self)
+		return vim.tbl_extend("force", self.mkdCode, { style = "nocombine" })
+	end,
 	manOptionDesc = "Special",
-	manUnderline = '@text.literal',
-	manReference = '@text.uri',
-	manHeader = 'markdownH1',
-	manSectionHeading = 'markdownH2',
-	manSubHeading = 'markdownH3',
+	manUnderline = "@text.literal",
+	manReference = "@text.uri",
+	manHeader = "markdownH1",
+	manSectionHeading = "markdownH2",
+	manSubHeading = "markdownH3",
 
 	--[[ 4.4. Plugins ]]
 
 	--[[ 4.3.39 Rust ]]
-	['@lsp.mod.callable.rust'] = '@lsp.type.function',
-	['@lsp.type.builtinType.rust'] = '@lsp.type.type',
-	['@lsp.type.character.rust'] = {},
-	['@lsp.type.decorator.rust'] = '@preproc',
-	['@lsp.type.derive.rust'] = '@macro',
-	['@lsp.type.enumMember.rust'] = {},
-	['@lsp.type.macro.rust'] = {},
-	['@lsp.type.operator.rust'] = {},
-	['@lsp.type.selfKeyword.rust'] = '@keyword',
-	['@lsp.type.selfTypeKeyword.rust'] = '@lsp.type.typeAlias.rust',
-	['@lsp.type.string.rust'] = {},
-	['@lsp.type.typeAlias.rust'] = '@type.definition',
-	['@lsp.typemod.character.injected.rust'] = '@lsp.type.character',
-	['@lsp.typemod.deriveHelper.attribute.rust'] = '@lsp.type.decorator.rust',
-	['@lsp.typemod.keyword.injected.rust'] = '@keyword',
-	['@lsp.typemod.macro.injected.rust'] = '@macro',
-	['@lsp.typemod.operator.injected.rust'] = '@operator',
-	['@lsp.typemod.string.injected.rust'] = '@lsp.type.string',
-	rustAssert = 'Debug',
-	rustCharacterDelimiter = 'rustNoise',
-	rustIdentifier = 'Identifier',
-	rustStaticLifetime = 'rustStorage',
-	rustStringDelimiter = 'rustNoise',
+	["@lsp.mod.callable.rust"] = "@lsp.type.function",
+	["@lsp.type.builtinType.rust"] = "@lsp.type.type",
+	["@lsp.type.character.rust"] = {},
+	["@lsp.type.decorator.rust"] = "@preproc",
+	["@lsp.type.derive.rust"] = "@macro",
+	["@lsp.type.enumMember.rust"] = {},
+	["@lsp.type.macro.rust"] = {},
+	["@lsp.type.operator.rust"] = {},
+	["@lsp.type.selfKeyword.rust"] = "@keyword",
+	["@lsp.type.selfTypeKeyword.rust"] = "@lsp.type.typeAlias.rust",
+	["@lsp.type.string.rust"] = {},
+	["@lsp.type.typeAlias.rust"] = "@type.definition",
+	["@lsp.typemod.character.injected.rust"] = "@lsp.type.character",
+	["@lsp.typemod.deriveHelper.attribute.rust"] = "@lsp.type.decorator.rust",
+	["@lsp.typemod.keyword.injected.rust"] = "@keyword",
+	["@lsp.typemod.macro.injected.rust"] = "@macro",
+	["@lsp.typemod.operator.injected.rust"] = "@operator",
+	["@lsp.typemod.string.injected.rust"] = "@lsp.type.string",
+	rustAssert = "Debug",
+	rustCharacterDelimiter = "rustNoise",
+	rustIdentifier = "Identifier",
+	rustStaticLifetime = "rustStorage",
+	rustStringDelimiter = "rustNoise",
 
 	--[[ 4.3.40 XXD ]]
-	xxdAddress = 'Label',
-	xxdAscii = 'Character',
-	xxdDot = 'Ignore',
-	xxdSep = 'Delimiter',
+	xxdAddress = "Label",
+	xxdAscii = "Character",
+	xxdDot = "Ignore",
+	xxdSep = "Delimiter",
 
 	--[[ 4.3.41 i3config ]]
-	i3ConfigAction = 'Function',
-	i3ConfigAssignKeyword = 'Keyword',
-	i3ConfigAssign = 'i3ConfigVariable',
-	i3ConfigBind = '@text',
-	i3ConfigBindKeyword = 'Keyword',
-	i3ConfigBlockKeyword = 'Keyword',
-	i3ConfigBorderStyle = 'Keyword',
-	i3ConfigBorderStyleKeyword = 'Keyword',
-	i3ConfigClientColorKeyword = 'Keyword',
-	i3ConfigCommandKeyword = 'Keyword',
-	i3ConfigDelayUrgencyKeyword = 'Keyword',
-	i3ConfigDrawingMarksKeyword = 'Keyword',
-	i3ConfigEdgeKeyword = 'Keyword',
-	i3ConfigExec = 'Statement',
-	i3ConfigExecKeyword = 'Keyword',
-	i3ConfigFloating = 'Keyword',
-	i3ConfigFocusFollowsMouseKeyword = 'Keyword',
-	i3ConfigFocusOnActivationKeyword = 'Keyword',
-	i3ConfigFocusWrappingKeyword = 'Keyword',
-	i3ConfigFontContent = 'String',
-	i3ConfigFontKeyword = 'Keyword',
-	i3ConfigFontSeparator = 'Delimiter',
-	i3ConfigFontSize = 'i3ConfigNumber',
-	i3ConfigForceXineramaKeyword = 'Keyword',
-	i3ConfigGapStyleKeyword = 'Keyword',
-	i3ConfigInitialize = 'String',
-	i3ConfigInitializeKeyword = 'Keyword',
-	i3ConfigInterprocessKeyword = 'Keyword',
-	i3ConfigLayoutKeyword = 'Keyword',
-	i3ConfigMouseWarpingKeyword = 'Keyword',
-	i3ConfigNoFocusKeyword = 'Keyword',
-	i3ConfigNoStartupId = 'i3ConfigBindArgument',
-	i3ConfigNumber = 'Number',
-	i3ConfigOrientationKeyword = 'Keyword',
-	i3ConfigPopupOnFullscreenKeyword = 'Keyword',
-	i3ConfigResourceKeyword = 'Keyword',
-	i3ConfigSmartBorderKeyword = 'Keyword',
-	i3ConfigSmartGapKeyword = 'Keyword',
-	i3ConfigString = 'String',
-	i3ConfigTitleAlignKeyword = 'Keyword',
-	i3ConfigVariable = 'Define',
-	i3ConfigVariableAndModifier = 'Character',
-	i3ConfigVariableModifier = 'Operator',
-	i3ConfigWindowCommandSpecial = 'htmlTag',
-	i3ConfigWorkspaceKeyword = 'Keyword',
+	i3ConfigAction = "Function",
+	i3ConfigAssignKeyword = "Keyword",
+	i3ConfigAssign = "i3ConfigVariable",
+	i3ConfigBind = "@text",
+	i3ConfigBindKeyword = "Keyword",
+	i3ConfigBlockKeyword = "Keyword",
+	i3ConfigBorderStyle = "Keyword",
+	i3ConfigBorderStyleKeyword = "Keyword",
+	i3ConfigClientColorKeyword = "Keyword",
+	i3ConfigCommandKeyword = "Keyword",
+	i3ConfigDelayUrgencyKeyword = "Keyword",
+	i3ConfigDrawingMarksKeyword = "Keyword",
+	i3ConfigEdgeKeyword = "Keyword",
+	i3ConfigExec = "Statement",
+	i3ConfigExecKeyword = "Keyword",
+	i3ConfigFloating = "Keyword",
+	i3ConfigFocusFollowsMouseKeyword = "Keyword",
+	i3ConfigFocusOnActivationKeyword = "Keyword",
+	i3ConfigFocusWrappingKeyword = "Keyword",
+	i3ConfigFontContent = "String",
+	i3ConfigFontKeyword = "Keyword",
+	i3ConfigFontSeparator = "Delimiter",
+	i3ConfigFontSize = "i3ConfigNumber",
+	i3ConfigForceXineramaKeyword = "Keyword",
+	i3ConfigGapStyleKeyword = "Keyword",
+	i3ConfigInitialize = "String",
+	i3ConfigInitializeKeyword = "Keyword",
+	i3ConfigInterprocessKeyword = "Keyword",
+	i3ConfigLayoutKeyword = "Keyword",
+	i3ConfigMouseWarpingKeyword = "Keyword",
+	i3ConfigNoFocusKeyword = "Keyword",
+	i3ConfigNoStartupId = "i3ConfigBindArgument",
+	i3ConfigNumber = "Number",
+	i3ConfigOrientationKeyword = "Keyword",
+	i3ConfigPopupOnFullscreenKeyword = "Keyword",
+	i3ConfigResourceKeyword = "Keyword",
+	i3ConfigSmartBorderKeyword = "Keyword",
+	i3ConfigSmartGapKeyword = "Keyword",
+	i3ConfigString = "String",
+	i3ConfigTitleAlignKeyword = "Keyword",
+	i3ConfigVariable = "Define",
+	i3ConfigVariableAndModifier = "Character",
+	i3ConfigVariableModifier = "Operator",
+	i3ConfigWindowCommandSpecial = "htmlTag",
+	i3ConfigWorkspaceKeyword = "Keyword",
 
 	--[[ 4.3.42 xDefaults ]]
-	xdefaultsLabel = 'Label',
-	xdefaultsPunct = 'Delimiter',
-	xdefaultsValue = 'String',
+	xdefaultsLabel = "Label",
+	xdefaultsPunct = "Delimiter",
+	xdefaultsValue = "String",
 
 	--[[ 4.4. Plugins
 		Everything in this section is OPTIONAL. Feel free to remove everything
@@ -794,7 +816,7 @@ local highlight_groups = {
 	NERDTreeLinkTarget = "Tag",
 
 	--[[ 4.4.8. nvim-treesitter ]]
-	['@structure'] = 'Structure', -- BUG: missing from Nvim >=0.9
+	["@structure"] = "Structure", -- BUG: missing from Nvim >=0.9
 	["@boolean"] = { fg = orange_dark, style = "italic" },
 	["@text.note"] = "Info",
 	["@text.warning"] = "Warning",
@@ -838,15 +860,33 @@ local highlight_groups = {
 	["@text.strong"] = { style = "bold" },
 
 	--[[ 4.4.9. barbar.nvim ]]
-	BufferAlternate = function(self) return {fg = self.BufferVisible.fg, bg = self.TabLine.bg} end,
-	BufferAlternateERROR = function(self) return {fg = self.ErrorMsg.fg, bg = gray_dark} end,
-	BufferAlternateHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = gray_dark} end,
-	BufferAlternateIndex = function(self) return {fg = self.Number.fg, bg = gray_dark} end,
-	BufferAlternateINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = gray_dark} end,
-	BufferAlternateMod = function(self) return {fg = self.BufferVisibleMod.fg, bg = gray_dark, style = 'bold'} end,
-	BufferAlternateSign = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferAlternate.bg} end,
-	BufferAlternateTarget = function(self) return {fg = self.BufferAlternateSign.fg, bg = gray_dark, style = 'italic'} end,
-	BufferAlternateWARN = function(self) return {fg = self.WarningMsg.fg, bg = gray_dark} end,
+	BufferAlternate = function(self)
+		return { fg = self.BufferVisible.fg, bg = self.TabLine.bg }
+	end,
+	BufferAlternateERROR = function(self)
+		return { fg = self.ErrorMsg.fg, bg = gray_dark }
+	end,
+	BufferAlternateHINT = function(self)
+		return { fg = self.DiagnosticFloatingHint.fg, bg = gray_dark }
+	end,
+	BufferAlternateIndex = function(self)
+		return { fg = self.Number.fg, bg = gray_dark }
+	end,
+	BufferAlternateINFO = function(self)
+		return { fg = self.DiagnosticFloatingInfo.fg, bg = gray_dark }
+	end,
+	BufferAlternateMod = function(self)
+		return { fg = self.BufferVisibleMod.fg, bg = gray_dark, style = "bold" }
+	end,
+	BufferAlternateSign = function(self)
+		return { fg = self.DiagnosticFloatingHint.fg, bg = self.BufferAlternate.bg }
+	end,
+	BufferAlternateTarget = function(self)
+		return { fg = self.BufferAlternateSign.fg, bg = gray_dark, style = "italic" }
+	end,
+	BufferAlternateWARN = function(self)
+		return { fg = self.WarningMsg.fg, bg = gray_dark }
+	end,
 	BufferCurrent = { dark = { fg = gray_light }, light = { fg = gray_light }, style = "bold" },
 	BufferCurrentIndex = function(self)
 		return { fg = self.InfoMsg.fg, bg = self.BufferCurrent.bg }
@@ -932,6 +972,7 @@ local highlight_groups = {
 	TodoSignPERF = "TodoFgPERF",
 	TodoSignTODO = "TodoFgTODO",
 	TodoSignWARN = "TodoFgWARN",
+
 	--[[ 4.4.15. gitsigns.nvim ]]
 	GitSignsAdd = "GitGutterAdd",
 	GitSignsAddNr = { fg = addfg, bg = addbg },
@@ -942,53 +983,51 @@ local highlight_groups = {
 	GitSignsDelete = "GitGutterDelete",
 	GitSignsDeleteNr = { fg = delfg, bg = delbg },
 	GitSignsDeleteLn = "GitSignsDeleteNr",
+
 	--[[ 4.4.16. nvim-compe and cmp ]]
 	CmpDocumentationBorder = { bg = BG, dark = { fg = gray_dark }, light = { fg = white } },
+	CmpBorder = { bg = BG, dark = { fg = gray_dark }, light = { fg = white } },
 	CmpDocumentation = { bg = BG },
 	CmpItemAbbr = { fg = gray_medium },
-	CmpItemMenu = { dark = { bg = gray_darker }, light = { fg = gray_medium } },
+	CmpItemMenu = { dark = { fg = gray_light }, light = { fg = white }, style = "italic" },
 	CmpItemAbbrMatch = { fg = red },
 	CmpItemAbbrDeprecated = { fg = gray_dark, style = { "strikethrough" } },
-	CmpItemAbbrMatchFuzzy = { fg = red },
-	CmpItemKind = { fg = turquoise_dark },
-	CmpItemKindVariable = { fg = blue },
-	CmpItemKindInterface = { fg = blue },
-	CmpItemKindText = { fg = blue },
-	CmpItemKindFunction = { fg = pink },
-	CmpItemKindMethod = { fg = pink },
-	CmpItemKindKeyword = { fg = green },
-	CmpItemKindProperty = { fg = green },
-	CmpItemKindUnit = { fg = green },
+	CmpItemAbbrMatchFuzzy = { fg = blue },
+	CmpItemKind = { bg = turquoise_dark, fg = whiter },
+	CmpItemKindVariable = { bg = blue, fg = whiter },
+	CmpItemKindInterface = { bg = yellow, fg = whiter },
+	CmpItemKindText = { bg = magenta, fg = whiter },
+	CmpItemKindFunction = { bg = pink, fg = whiter },
+	CmpItemKindMethod = { bg = pink, fg = whiter },
+	CmpItemKindKeyword = { bg = orange, fg = whiter },
+	CmpItemKindProperty = { bg = green_dark, fg = whiter },
+	CmpItemKindUnit = { bg = purple, fg = whiter },
 	CmpItemAbbrDefault = "Ignore",
 	CmpItemAbbrMatchDefault = "Underlined",
-	CmpItemAbbrMatchFuzzyDefault = { fg = highlight_group_normal.fg, style = { "nocombine", "underline" } },
+	CmpItemAbbrMatchFuzzyDefault = {
+		fg = highlight_group_normal.fg,
+		style = { "nocombine", "underline", color = whiter },
+	},
 	CmpItemKindDefault = "Type",
-	CmpItemKindClassDefault = "CmpItemKindStructDefault",
-	CmpItemKindColorDefault = "Label",
-	CmpItemKindConstantDefault = "Constant",
-	CmpItemKindConstructorDefault = "CmpItemKindMethodDefault",
-	CmpItemKindEnumDefault = "CmpItemKindStructDefault",
-	CmpItemKindEnumMemberDefault = "CmpItemKindConstantDefault",
-	CmpItemKindEventDefault = "Repeat",
-	CmpItemKindFieldDefault = "Identifier",
-	CmpItemKindFileDefault = "Directory",
-	CmpItemKindFolderDefault = "CmpItemKindFileDefault",
-	CmpItemKindFunctionDefault = "Function",
-	CmpItemKindInterfaceDefault = "Type",
-	CmpItemKindKeywordDefault = "Keyword",
-	CmpItemKindMethodDefault = "CmpItemKindFunctionDefault",
-	CmpItemKindModuleDefault = "Include",
-	CmpItemKindOperatorDefault = "Operator",
-	CmpItemKindPropertyDefault = "CmpItemKindFieldDefault",
-	CmpItemKindReferenceDefault = "StorageClass",
-	CmpItemKindSnippetDefault = "Special",
-	CmpItemKindStructDefault = "Structure",
-	CmpItemKindTextDefault = "String",
-	CmpItemKindTypeParameterDefault = "Typedef",
-	CmpItemKindUnitDefault = "CmpItemKindStructDefault",
-	CmpItemKindValueDefault = "CmpItemKindConstantDefault",
-	CmpItemKindVariableDefault = "Identifier",
+	CmpItemKindClass = { bg = blue, fg = whiter },
+	CmpItemKindColor = { bg = yellow, fg = whiter },
+	CmpItemKindConstant = { bg = magenta, fg = whiter },
+	CmpItemKindConstructor = { bg = pink, fg = whiter },
+	CmpItemKindEnum = { bg = pink, fg = whiter },
+	CmpItemKindEnumMember = { bg = orange, fg = whiter },
+	CmpItemKindEvent = { bg = green_dark, fg = whiter },
+	CmpItemKindField = { bg = purple, fg = whiter },
+	CmpItemKindFile = { bg = blue, fg = whiter },
+	CmpItemKindFolder = { bg = yellow, fg = whiter },
+	CmpItemKindModule = { bg = magenta, fg = whiter },
+	CmpItemKindOperator = { bg = pink, fg = whiter },
+	CmpItemKindReference = { bg = pink, fg = whiter },
+	CmpItemKindSnippet = { bg = orange, fg = whiter },
+	CmpItemKindStruct = { bg = green_dark, fg = whiter },
+	CmpItemKindTypeParameter = { bg = purple, fg = whiter },
+	CmpItemKindValue = { bg = blue, fg = whiter },
 	CmpWindowScrollThumb = { fg = white, style = "bold" },
+
 	--[[ 4.4.16. packer.nvim ]]
 	packerFail = "ErrorMsg",
 	packerHash = "Number",
@@ -1029,20 +1068,26 @@ local highlight_groups = {
 	DevIconH = { fg = purple },
 	DevIconDefault = { fg = gray_light },
 	--[[ 4.4.19. telescope ]]
-	TelescopeSelection = { dark = { fg = white }, light = { fg = blacker }, style = { "bold" } },
-	TelescopeSelectionCaret = { fg = red },
+	TelescopeSelection = {
+		dark = { bg = gray_darker, fg = white },
+		light = { bg = whiter, fg = blacker },
+		style = { "bold" },
+	},
+	TelescopeSelectionCaret = { dark = { bg = gray_darker, fg = white }, light = { bg = whiter, fg = blacker } },
 	TelescopeMultiSelection = { dark = { fg = white }, light = { fg = blacker }, style = { "bold" } },
-	TelescopeNormal = { fg = gray, bg = BG, style = { "bold" } },
+	TelescopeNormal = { fg = gray, bg = BG },
 	TelescopeBorder = { dark = { fg = gray_dark, bg = gray_dark }, light = { fg = white, bg = white } },
 	TelescopePromptBorder = { dark = { fg = gray_dark }, light = { fg = white }, bg = BG },
 	TelescopeResultsBorder = { dark = { fg = gray_dark }, light = { fg = white }, bg = BG },
 	TelescopePromptNormal = { bg = BG },
 	TelescopePreviewNormal = { bg = BG },
 	TelescopePreviewBorder = { dark = { fg = gray_dark }, light = { fg = white }, bg = BG },
-	TelescopeMatching = { fg = red, style = { "bold" } },
+	TelescopeMatching = { style = { "bold" } },
 	TelescopePromptPrefix = { fg = red, style = { "bold" } },
-	TelescopePromptTitle = { fg = red, style = { "bold" } },
-	TelescopeTitle = { fg = red, style = { "bold" } },
+	TelescopePromptTitle = { fg = whiter, bg = red_dark, style = { "bold" } },
+	TelescopeResultsTitle = { fg = whiter, bg = green_dark, style = { "bold" } },
+	TelescopePreviewTitle = { fg = whiter, bg = blue, style = { "bold" } },
+	TelescopeTitle = { fg = whiter, bg = red, style = { "bold" } },
 	TelescopeResultsDiffUntracked = { fg = red, style = { "bold" } },
 	--[[ 4.4.20. floaterm ]]
 	Floaterm = { dark = { bg = blackish }, light = { bg = whiter } },
@@ -1064,8 +1109,8 @@ local highlight_groups = {
 	NvimTreeIndentMarker = { dark = { fg = gray_darker }, light = { fg = white } },
 	NvimTreeWindowPicker = { fg = turquoise_dark },
 	NvimTreeOpenedFile = { style = { "bold" } },
-	NvimTreeSpecialFile = { fg = pink, style = { "undercurl" } },
-	NvimTreeSymlink = { fg = blue, style = { "undercurl" } },
+	NvimTreeSpecialFile = { fg = pink, style = { "underline", color = pink } },
+	NvimTreeSymlink = { fg = blue, style = { "underline", color = blue } },
 	NvimTreeExecFile = { fg = green, style = { "bold" } },
 	NvimTreeVertSplit = {
 		dark = { bg = blackish, fg = blackish },
@@ -1075,9 +1120,11 @@ local highlight_groups = {
 		},
 	},
 	NvimTreeStatuslineNc = { dark = { bg = gray_darkerer }, light = { bg = whiter } },
+
 	--[[ 4.4.22. lightbulb ]]
 	LightbulbTextHL = { fg = blue },
 	LightbulbVirtualText = { fg = gray_darkest, bg = gray },
+
 	--[[ 4.4.23. rainbow ]]
 	rainbowcol1 = { fg = red_dark },
 	rainbowcol2 = { fg = turquoise },
@@ -1086,20 +1133,23 @@ local highlight_groups = {
 	rainbowcol5 = { fg = blue },
 	rainbowcol6 = { fg = magenta },
 	rainbowcol7 = { dark = { fg = purple_light }, light = { fg = purple } },
+
 	--[[ 4.4.24. galaxyline ]]
 	GalaxyTree = { dark = { fg = blackish, bg = blackish }, light = { fg = whitest, bg = whitest } },
 	GalaxyViMode = { dark = { fg = white, bg = gray_darkerer }, light = { fg = white, bg = whiter } },
 	GalaxyBg = { dark = { fg = black, bg = black }, light = { fg = whitest, bg = whitest } },
-	GalaxyFg = { dark = { fg = white, bg = gray_darkerer }, light = { fg = black, bg = whiter }, style = { "bold" } },
-	GalaxyFgAlt = { dark = { fg = white, bg = gray_darkerer }, light = { fg = gray_medium, bg = whiter } },
-	GalaxyFgAlt2 = { dark = { fg = white, bg = gray_darkerer }, light = { fg = gray_light, bg = whiter } },
-	GalaxyYellow = { fg = yellow, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
-	GalaxyCyan = { fg = turquoise, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
-	GalaxyGreen = { fg = green, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
-	GalaxyOrange = { fg = orange, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
-	GalaxyMagenta = { fg = magenta, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
-	GalaxyBlue = { fg = blue, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
-	GalaxyRed = { fg = red, dark = { bg = gray_darkerer }, light = { bg = whiter }, style = { "bold" } },
+	GalaxyFg = { dark = { fg = white, bg = gray_darkerer }, light = { fg = black, bg = BG }, style = { "bold" } },
+	-- GalaxyFgAlt = { dark = { fg = white, bg = gray_darkerer }, light = { fg = gray_medium, bg = whiter } },
+	GalaxyFgAlt = { dark = { fg = white, bg = red }, light = { fg = whiter, bg = red_dark }, style = "bold" },
+	GalaxyFgAlt2 = { dark = { fg = white, bg = gray_darkerer }, light = { fg = gray_light, bg = BG } },
+	GalaxyYellow = { fg = yellow, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+	GalaxyCyan = { fg = turquoise, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+	GalaxyGreen = { fg = green, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+	GalaxyOrange = { fg = orange, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+	GalaxyMagenta = { fg = magenta, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+	GalaxyBlue = { fg = blue, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+	GalaxyRed = { fg = red, dark = { bg = gray_darkerer }, light = { bg = BG }, style = { "bold" } },
+
 	-- [[ 4.5 Others ]]
 	FocusedSymbol = { fg = black, bg = yellow },
 	OutlinePreviewBG = { bg = BG },
@@ -1137,49 +1187,49 @@ local highlight_groups = {
 	barbecue_separator = { dark = { fg = white, bg = gray_darkerer }, light = { fg = gray_medium, bg = whiterer } },
 	barbecue_ellipsis = { dark = { fg = white, bg = gray_darkerer }, light = { fg = gray_medium, bg = whiterer } },
 	barbecue_context_file = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFileDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFile.fg }
 	end,
 	barbecue_context_module = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFolderDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFolder.fg }
 	end,
 	barbecue_context_namespace = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFolderDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFolder.fg }
 	end,
 	barbecue_context_package = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFolderDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFolder.fg }
 	end,
 	barbecue_context_class = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindClassDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindClass.fg }
 	end,
 	barbecue_context_method = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindMethodDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindMethod.fg }
 	end,
 	barbecue_context_property = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindPropertyDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindProperty.fg }
 	end,
 	barbecue_context_field = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFieldDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindField.fg }
 	end,
 	barbecue_context_constructor = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindConstructorDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindConstructor.fg }
 	end,
 	barbecue_context_enum = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindEnumDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindEnum.fg }
 	end,
 	barbecue_context_interface = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindInterfaceDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindInterface.fg }
 	end,
 	barbecue_context_function = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFunctionDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindFunction.fg }
 	end,
 	barbecue_context_variable = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindVariableDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindVariable.fg }
 	end,
 	barbecue_context_constant = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindConstantDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindConstant.fg }
 	end,
 	barbecue_context_string = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindValueDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindValue.fg }
 	end,
 	barbecue_context_number = "barbecue_context_string",
 	barbecue_context_boolean = "barbecue_context_string",
@@ -1189,23 +1239,26 @@ local highlight_groups = {
 	barbecue_context_null = "barbecue_context_string",
 	SymbolsOutlineConnector = "IndentBlanklineChar",
 	barbecue_context_enum_member = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindEnumMemberDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindEnumMember.fg }
 	end,
 	barbecue_context_struct = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindStructDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindStruct.fg }
 	end,
 	barbecue_context_event = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindEventDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindEvent.fg }
 	end,
 	barbecue_context_operator = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindOperatorDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindOperator.fg }
 	end,
 	barbecue_context_type_parameter = function(self)
-		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindTypeParameterDefault.fg }
+		return { dark = { bg = gray_darkerer }, light = { bg = whiterer }, fg = self.CmpItemKindTypeParameter.fg }
 	end,
 	LocalHighlight = { style = { "undercurl" } },
 	LspSignatureActiveParameter = "Search",
 	LspLens = "Folded",
+	MiniMapNormal = "IndentBlanklineChar",
+	MiniMapSymbolLine = "Comment",
+	MiniMapSymbolView = "IndentBlanklineChar",
 }
 
 local terminal_colors = {

@@ -831,7 +831,7 @@ local highlight_groups = {
 	["@function.builtin"] = { fg = turquoise_dark, style = "bold" },
 	["@tag"] = "Tag",
 	["@function"] = "Function",
-	["@field"] = { dark = { fg = white }, light = { gray_dark } },
+	["@field"] = { dark = { fg = white }, light = { fg = gray_dark } },
 	["@exception"] = { fg = purple_light, style = "italic" },
 	["@function.macro"] = { fg = red_dark },
 	["@string.escape"] = "Character",

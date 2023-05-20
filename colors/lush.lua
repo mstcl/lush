@@ -903,7 +903,7 @@ local highlight_groups = {
 		return { fg = self.InfoMsg.fg, bg = self.BufferCurrent.bg }
 	end,
 	BufferCurrentMod = { fg = yellow2, bg = BG, style = { "italic", "bold" } },
-	BufferCurrentSign = { dark = { fg = gray1 }, light = { fg = gray7 }, bg = BG },
+	BufferCurrentSign = { dark = { fg = red }, light = { fg = red }, bg = BG },
 	BufferCurrentTarget = { fg = blue0, style = "bold" },
 	BufferInactive = { dark = { fg = gray1, bg = gray4 }, light = { fg = gray5, bg = gray8 } },
 	BufferInactiveIndex = function(self)
@@ -924,7 +924,7 @@ local highlight_groups = {
 		return { fg = self.InfoMsg.fg, bg = self.BufferVisible.bg }
 	end,
 	BufferVisibleMod = { fg = red0, bg = BG, style = { "bold", "italic" } },
-	BufferVisibleSign = { fg = gray1, bg = BG },
+	BufferVisibleSign = { dark = { fg = gray1 }, light = { fg = gray7 }, bg = BG },
 	BufferVisibleTarget = { fg = blue0, bg = BG, style = "bold" },
 	BufferSpaceSeparator = { dark = { fg = gray1, bg = gray1 }, light = { fg = gray9, bg = gray9 } },
 	BufferTypeSeparator = { dark = { fg = gray1, bg = gray1 }, light = { fg = gray9, bg = gray9 } },

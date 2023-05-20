@@ -903,7 +903,7 @@ local highlight_groups = {
 		return { fg = self.InfoMsg.fg, bg = self.BufferCurrent.bg }
 	end,
 	BufferCurrentMod = { fg = yellow2, bg = BG, style = { "italic", "bold" } },
-	BufferCurrentSign = { dark = { fg = red }, light = { fg = red }, bg = BG },
+	BufferCurrentSign = { dark = { fg = red0 }, light = { fg = red1 }, bg = BG },
 	BufferCurrentTarget = { fg = blue0, style = "bold" },
 	BufferInactive = { dark = { fg = gray1, bg = gray4 }, light = { fg = gray5, bg = gray8 } },
 	BufferInactiveIndex = function(self)

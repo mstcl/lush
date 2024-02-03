@@ -8,7 +8,7 @@ Using lazy.nvim:
 
 ```lua
 {
-	"git.bim.boats/lush",
+	"mstcl/lush",
 	lazy = false,
 	priority = 1000,
 	config = function()
@@ -16,3 +16,7 @@ Using lazy.nvim:
 	end,
 },
 ```
+
+## Notice
+
+This colorscheme is no longer maintained as I have moved to using [dmg](https://github.com/mstcl/dmg)
